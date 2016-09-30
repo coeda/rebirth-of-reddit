@@ -13,7 +13,6 @@
       this.ready = null;
       App.utils.Get('https://www.reddit.com/r/techsupportgore/.json', data => {
         const parsedBoardData = JSON.parse(data);
-        console.log(parsedBoardData.data.children[0].data.author);
         this.myBoards = parsedBoardData.data.children;
         this.render(this.ready);
 
@@ -54,14 +53,14 @@
       return readyFunc(view);
     }
   }
-  class Places {
+  class Random {
     //constructor prepares data
     constructor(){
-      this.places = [];
+      this.random = [];
       this.ready = null;
-      App.utils.Get('http://swapi.co/api/planets/', data => {
-        const parsedPlanetData = JSON.parse(data);
-        this.places = parsedPlanetData.results;
+      App.utils.Get('https://www.reddit.com/r/gifs.json', data => {
+        const parsedRandomData = JSON.parse(data);
+        this.random = parsedRandomData.data.children;
 
         this.render(this.ready);
 
@@ -74,17 +73,40 @@
 
     render(readyFunc){
       const view = document.createElement('div');
-      const list = document.createElement('ul');
+      view.id = 'container';
 
-      const items = this.places.map(place => {
-        let item = document.createElement('li');
-        item.innerHTML = place.name;
+      const items = this.random.map(random => {
+        let item = document.createElement('div');
+        let lineBreak = document.createElement('p');
+        let header = document.createElement('H1');
+        let title = document.createTextNode(random.data.title);
+        let video = document.createElement('video');
+        let author = document.createTextNode(random.data.author);
+        let source = document.createElement('source');
+        let changedUrl = random.data.url;
+        changedUrl = changedUrl.substring(0, changedUrl.length -4);
+        changedUrl += 'mp4';
+        source.src = changedUrl;
+        video.autoplay = 'autoplay';
+        video.loop = 'loop';
+        video.style.width = '200px';
+        video.style.height = '300px';
+        video.preload = 'auto';
+        source.type = 'video/mp4';
+        video.appendChild(source);
+        header.appendChild(title);
+
+        item.className = 'boxDisplay';
+        item.appendChild(header);
+        item.appendChild(lineBreak);
+        item.appendChild(video);
+        item.appendChild(lineBreak);
+        item.appendChild(author);
         return item;
       });
 
-      items.forEach(list.appendChild.bind(list));
+      items.forEach(view.appendChild.bind(view));
 
-      view.appendChild(list);
       return readyFunc(view);
     }
   }
@@ -125,7 +147,7 @@
 
   window.App.states = {
     MyBoards,
-    Places,
+    Random,
     Spaceships
   };
 
