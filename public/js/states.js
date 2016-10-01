@@ -74,7 +74,8 @@
     render(readyFunc){
       const view = document.createElement('div');
       view.id = 'container';
-
+      this.random.shift();
+      this.random.shift();
       const items = this.random.map(random => {
         let item = document.createElement('div');
         let lineBreak = document.createElement('p');
@@ -84,19 +85,23 @@
         let author = document.createTextNode(random.data.author);
         let source = document.createElement('source');
         let changedUrl = random.data.url;
-        changedUrl = changedUrl.substring(0, changedUrl.length -4);
-        changedUrl += 'mp4';
+        changedUrl = changedUrl.split('.');
+        if(changedUrl[changedUrl.length - 1] === 'gifv' || changedUrl[changedUrl.length - 1] === 'gif'){
+          changedUrl.pop();
+        }
+        changedUrl.push('mp4');
+        changedUrl = changedUrl.join('.');
         source.src = changedUrl;
+        source.type = 'video/mp4';
         video.autoplay = 'autoplay';
         video.loop = 'loop';
-        video.style.width = '200px';
-        video.style.height = '300px';
+        video.style.width = '400px';
+        video.style.height = '500px';
         video.preload = 'auto';
-        source.type = 'video/mp4';
         video.appendChild(source);
         header.appendChild(title);
 
-        item.className = 'boxDisplay';
+        item.className = 'boxDisplay gifs';
         item.appendChild(header);
         item.appendChild(lineBreak);
         item.appendChild(video);
