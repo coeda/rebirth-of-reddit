@@ -11,7 +11,7 @@
       //execute xhr request to this people end point
       this.myBoards = [];
       this.ready = null;
-      App.utils.Get('https://www.reddit.com/r/techsupportgore/.json', data => {
+      App.utils.Get('https://www.reddit.com/r/memes/.json', data => {
         const parsedBoardData = JSON.parse(data);
         this.myBoards = parsedBoardData.data.children;
         this.render(this.ready);
@@ -36,11 +36,17 @@
         let title = document.createTextNode(myBoard.data.title);
         let image = document.createElement('img');
         let author = document.createTextNode(myBoard.data.author);
+        let link = document.createElement('a');
+        link.setAttribute('href', 'http://reddit.com' + myBoard.data.permalink);
+        link.setAttribute('target', '_blank');
+        link.appendChild(header);
         image.src = myBoard.data.thumbnail;
+        image.style.height = '200px';
+        image.style.width = '300px';
         header.appendChild(title);
 
         item.className = 'boxDisplay';
-        item.appendChild(header);
+        item.appendChild(link);
         item.appendChild(lineBreak);
         item.appendChild(image);
         item.appendChild(lineBreak);
@@ -83,6 +89,10 @@
         let title = document.createTextNode(random.data.title);
         let video = document.createElement('video');
         let author = document.createTextNode(random.data.author);
+        let link = document.createElement('a');
+        link.setAttribute('href', 'http://reddit.com' + random.data.permalink);
+        link.setAttribute('target', '_blank');
+        link.appendChild(header);
         let source = document.createElement('source');
         let changedUrl = random.data.url;
         changedUrl = changedUrl.split('.');
@@ -102,7 +112,7 @@
         header.appendChild(title);
 
         item.className = 'boxDisplay gifs';
-        item.appendChild(header);
+        item.appendChild(link);
         item.appendChild(lineBreak);
         item.appendChild(video);
         item.appendChild(lineBreak);
@@ -115,14 +125,14 @@
       return readyFunc(view);
     }
   }
-  class Spaceships {
+  class GetTheApp {
     //constructor prepares data
     constructor(){
-      this.spaceships = [];
+      this.getTheApp = [];
       this.ready = null;
       App.utils.Get('http://swapi.co/api/starships/', data => {
-        const parsedStarshipData = JSON.parse(data);
-        this.starships = parsedStarshipData.results;
+        const parsedGetTheAppData = JSON.parse(data);
+        this.getTheApp = parsedGetTheAppData.results;
 
         this.render(this.ready);
 
@@ -137,9 +147,9 @@
       const view = document.createElement('div');
       const list = document.createElement('ul');
 
-      const items = this.starships.map(starships => {
+      const items = this.getTheApp.map(starships => {
         let item = document.createElement('li');
-        item.innerHTML = starships.name;
+        item.innerHTML = getTheApp.name;
         return item;
       });
 
@@ -153,7 +163,7 @@
   window.App.states = {
     MyBoards,
     Random,
-    Spaceships
+    GetTheApp
   };
 
 }(window));
