@@ -1,4 +1,6 @@
 let myBoardUrl = 'https://www.reddit.com/r/memes/.json';
+let myRandomUrl = 'https://www.reddit.com/r/gifs.json';
+let count = 0;
 
 (function(window){
   //namespace our app
@@ -18,7 +20,9 @@ let myBoardUrl = 'https://www.reddit.com/r/memes/.json';
         const parsedBoardData = JSON.parse(data);
         this.myBoards = parsedBoardData.data.children;
         this.render(this.ready);
-
+        count += 25;
+        myBoardUrl = 'https://www.reddit.com/r/memes/.json?count=' + (count) + '&after=' + parsedBoardData.data.after;
+        console.log(myBoardUrl);
       });
     }
     //render our data when data is ready
@@ -56,6 +60,7 @@ let myBoardUrl = 'https://www.reddit.com/r/memes/.json';
         return item;
       });
 
+
       items.forEach(view.appendChild.bind(view));
 
       return readyFunc(view);
@@ -66,11 +71,13 @@ let myBoardUrl = 'https://www.reddit.com/r/memes/.json';
     constructor(){
       this.random = [];
       this.ready = null;
-      App.utils.Get('https://www.reddit.com/r/gifs.json', data => {
+      App.utils.Get(myRandomUrl, data => {
         const parsedRandomData = JSON.parse(data);
         this.random = parsedRandomData.data.children;
-
         this.render(this.ready);
+        count += 25;
+        myRandomUrl = 'https://www.reddit.com/r/gifs/.json?count=' + (count) + '&after=' + parsedRandomData.data.after;
+
 
       });
     }
