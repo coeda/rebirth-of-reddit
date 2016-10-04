@@ -1,9 +1,12 @@
+let myBoardUrl = 'https://www.reddit.com/r/memes/.json';
+
 (function(window){
   //namespace our app
   window.App = window.App || {};
 
   //each state will prepare data to be rendered
   //have a function to that returns new state dom tree
+  let container = document.getElementById('container');
 
   class MyBoards {
     //constructor prepares data
@@ -11,7 +14,7 @@
       //execute xhr request to this people end point
       this.myBoards = [];
       this.ready = null;
-      App.utils.Get('https://www.reddit.com/r/memes/.json', data => {
+      App.utils.Get(myBoardUrl, data => {
         const parsedBoardData = JSON.parse(data);
         this.myBoards = parsedBoardData.data.children;
         this.render(this.ready);
@@ -26,8 +29,7 @@
     }
 
     render(readyFunc){
-      const view = document.createElement('div');
-      view.id = 'container';
+      const view = container;
 
       const items = this.myBoards.map(myBoard => {
         let item = document.createElement('div');
@@ -78,8 +80,7 @@
     }
 
     render(readyFunc){
-      const view = document.createElement('div');
-      view.id = 'container';
+      const view = container;
       this.random.shift();
       this.random.shift();
       const items = this.random.map(random => {
