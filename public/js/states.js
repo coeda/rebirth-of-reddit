@@ -21,7 +21,7 @@ let count = 0;
         this.myBoards = parsedBoardData.data.children;
         this.render(this.ready);
         count += 25;
-        myBoardUrl = 'https://www.reddit.com/r/memes/.json?count=' + (count) + '&after=' + parsedBoardData.data.after;
+        myBoardUrl = 'https://www.reddit.com/r/memes/.json?count=25' + '&after=' + parsedBoardData.data.after;
         console.log(myBoardUrl);
       });
     }

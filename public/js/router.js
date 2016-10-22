@@ -15,6 +15,7 @@ let lastSelected;
       if(route !== lastSelected){
         document.getElementById('container').innerHTML = '';
         count = 0;
+
       }
       switch(route){
         case 'myBoards':

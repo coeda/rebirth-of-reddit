@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald" />
 </head>
-<body>
+<body onload ="loadFunction()"">
   <div id="title">
     <div id="titleDiv"><img src="/assets/logo.svg" alt=""></div>
   </div>
@@ -22,13 +22,7 @@
 
   <div id="boxContainer">
     <div id="container">
-      <div class="boxDisplay">stuff</div>
-      <div class="boxDisplay">stuff</div>
-      <div class="boxDisplay">stuff</div>
-      <div class="boxDisplay">stuff</div>
-      <div class="boxDisplay">stuff</div>
-      <div class="boxDisplay">stuff</div>
-      <div class="boxDisplay">stuff</div>
+
     </div>
     </div>
   <div id="bottom">
@@ -37,8 +31,15 @@
     <img src="/assets/instagram_grey.svg"></div>
   </div>
 
+  <script type="text/javascript" src = 'js/scrollHandler.js'></script>
   <script type="text/javascript"  src = 'js/utils.js'></script>
   <script type="text/javascript" src = 'js/states.js'></script>
   <script type="text/javascript" src = 'js/router.js'></script>
+  <script>
+  function loadFunction(){
+    App.Router.navigate('myBoards');
+  }
+  </script>
+
 </body>
 </html>
