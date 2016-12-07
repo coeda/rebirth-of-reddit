@@ -114,6 +114,7 @@ let count = 0;
         video.style.width = '400px';
         video.style.height = '500px';
         video.preload = 'auto';
+        video.controls = 'true';
         video.appendChild(source);
         header.appendChild(title);
 
